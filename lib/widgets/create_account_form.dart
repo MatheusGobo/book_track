@@ -1,9 +1,8 @@
 import 'package:book_track/widgets/widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({
+class CreateAccountForm extends StatelessWidget {
+  const CreateAccountForm({
     Key? key,
     required GlobalKey<FormState> formKey,
     required TextEditingController emailTextController,
@@ -20,6 +19,9 @@ class LoginForm extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
+            Text('Please enter a valide email and a password that is at least 6 character.'
+
+            ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
@@ -34,7 +36,15 @@ class LoginForm extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 validator: (value) {
-                  return value!.isEmpty ? 'Enter password' : null;
+                  if(value!.isEmpty) {
+                    return 'Enter password';
+                  }
+
+                  if (value.length < 6) {
+                    return 'Password must be 6 characters';
+                  }
+
+                  return null;
                 },
                 controller: _passwordTextController,
                 obscureText: true,
@@ -47,9 +57,7 @@ class LoginForm extends StatelessWidget {
             TextButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()){
-                  FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: _emailTextController.text,
-                    password: _passwordTextController.text).then((value) => print(value.user?.uid));
+
                 }
               },
               style: TextButton.styleFrom(
@@ -63,7 +71,7 @@ class LoginForm extends StatelessWidget {
                   fontSize: 18
                 )
               ),
-              child: Text('Sign In')
+              child: Text('Create Account')
             )
           ],
         ),

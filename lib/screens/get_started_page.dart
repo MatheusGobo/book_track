@@ -97,7 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                           emailTextController: _emailTextController,
                           passwordTextController: _passwordTextController
                         )
-                        : Text('teste')),
+                        : CreateAccountForm(
+                          formKey: _formKey,
+                          emailTextController: _emailTextController,
+                          passwordTextController: _passwordTextController
+                        )),
                 TextButton.icon(
                     icon: Icon(Icons.portrait_rounded),
                     style: TextButton.styleFrom(
