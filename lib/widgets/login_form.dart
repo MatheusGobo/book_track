@@ -1,3 +1,4 @@
+import 'package:book_track/screens/screens.dart';
 import 'package:book_track/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +42,17 @@ class LoginForm extends StatelessWidget {
                 decoration: buildInputDecoration(label: 'password', hintText: ''),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()){
-                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: _emailTextController.text,
-                    password: _passwordTextController.text).then((value) => print(value.user?.uid));
+                    password: _passwordTextController.text).then((value) {
+                      return Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreenPage(),));
+                    });
                 }
               },
               style: TextButton.styleFrom(
