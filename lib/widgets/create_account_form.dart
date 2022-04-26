@@ -1,4 +1,5 @@
 import 'package:book_track/screens/screens.dart';
+import 'package:book_track/services/services.dart';
 import 'package:book_track/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,23 +102,5 @@ class CreateAccountForm extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> createUser(String displayName, BuildContext context) async {
-    final userCollectionReference =
-        FirebaseFirestore.instance.collection('users');
-
-    FirebaseAuth auth = FirebaseAuth.instance;
-    String uid = auth.currentUser!.uid;
-
-    Map<String, dynamic> user = {
-      'avatar_url': null,
-      'display_name': displayName,
-      'profession': null,
-      'quotes': null,
-      'uid': uid
-    };
-
-    userCollectionReference.add(user);
   }
 }
